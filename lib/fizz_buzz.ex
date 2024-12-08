@@ -6,16 +6,22 @@ defmodule FizzBuzz do
   end
 
   defp handle_file_read({:ok, result}) do
+    show_initial_file(result)
     result =
       result
       |> String.split(",")
       |> Enum.map(&convert_and_evaluate_numbers/1)
 
+    IO.inspect(result, label: "Converted list ")
     {:ok, result}
   end
 
   defp handle_file_read({:error, reason}),
     do: {:error, "Found the following error trying to read the file: #{reason}"}
+
+  defp show_initial_file(initial_file) do
+    IO.inspect(initial_file, label: "Received list  ")
+  end
 
   defp convert_and_evaluate_numbers(elem) do
     elem
